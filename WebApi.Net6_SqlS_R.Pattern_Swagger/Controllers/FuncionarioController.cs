@@ -52,5 +52,13 @@ namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Controllers
             ServiceResponse<List<FuncionarioWebModel>> serviceResponse = await _funcionarioInterface.InativaFuncionario(Id);
             return Ok(serviceResponse);
         }
+
+        [HttpDelete("{id}")]
+        public async Task <ActionResult<ServiceResponse<List<FuncionarioWebModel>>>> DeleteFuncionario(int id)
+        {
+            ServiceResponse<List<FuncionarioWebModel>> serviceResponse = await _funcionarioInterface.DeleteFuncionario(id);
+            return Ok(serviceResponse);
+        }
+
     }
 }
