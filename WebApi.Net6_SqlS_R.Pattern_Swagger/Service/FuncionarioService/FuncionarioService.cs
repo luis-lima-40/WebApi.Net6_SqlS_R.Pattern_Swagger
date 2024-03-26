@@ -45,9 +45,35 @@ namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Service.FuncionarioService
             return serviceResponse; //retorne o serviceResponse
         }
 
-        public Task<ServiceResponse<List<FuncionarioWebModel>>> AtivaFuncionario(int id)
+        public async Task<ServiceResponse<List<FuncionarioWebModel>>> AtivaFuncionario(int id)
         {
-            throw new NotImplementedException();
+            ServiceResponse<List<FuncionarioWebModel>> serviceResponse = new ServiceResponse<List<FuncionarioWebModel>>(); //instancie o serviceResponse
+            try
+            {
+                FuncionarioWebModel funcionario = _context.Funcionarios.FirstOrDefault(x => x.Id == id);
+                
+                if (funcionario == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Nenhum funcionário funcionario selecionado para ativar!";
+                    serviceResponse.Sucesso = false;
+                    return serviceResponse;
+                }
+
+
+                funcionario.Ativo = true;
+                funcionario.DataDeAlteracao = DateTime.Now.ToLocalTime();
+                _context.Funcionarios.Update(funcionario);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = _context.Funcionarios.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<List<FuncionarioWebModel>>> DeleteFuncionario(int id)
