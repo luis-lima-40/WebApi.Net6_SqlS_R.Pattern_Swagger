@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Net6_SqlS_R.Pattern_Swagger.Enums;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Models;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Service.FuncionarioService;
 
@@ -29,6 +30,12 @@ namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Controllers
         public async Task <ActionResult<ServiceResponse<FuncionarioWebModel>>> GetFuncionarioById(int id)
         {
             ServiceResponse<FuncionarioWebModel> serviceResponse = await _funcionarioInterface.GetFuncionarioById(id);
+            return Ok(serviceResponse);
+        }
+        [HttpGet("departamento/{departamento}")]
+        public async Task <ActionResult<ServiceResponse<List<FuncionarioWebModel>>>> GetFuncionarioByDepartamento(DepartamentoEnum departamento)
+        {
+            ServiceResponse<List<FuncionarioWebModel>> serviceResponse = await _funcionarioInterface.GetFuncionarioByDepartamento(departamento);
             return Ok(serviceResponse);
         }
 

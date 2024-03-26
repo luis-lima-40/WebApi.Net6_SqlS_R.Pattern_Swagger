@@ -121,9 +121,24 @@ namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Service.FuncionarioService
             return serviceResponse; //retorne o serviceResponse
         }
 
-        public Task<ServiceResponse<List<FuncionarioWebModel>>> GetFuncionarioByDepartamento(DepartamentoEnum Departamento)
+        public async Task<ServiceResponse<List<FuncionarioWebModel>>> GetFuncionarioByDepartamento(DepartamentoEnum Departamento)
         {
-            throw new NotImplementedException();
+            ServiceResponse<List<FuncionarioWebModel>> serviceResponse = new ServiceResponse<List<FuncionarioWebModel>>(); //instancie o serviceResponse
+            try
+            {
+                serviceResponse.Dados = _context.Funcionarios.Where(x => x.Departamento == Departamento).ToList(); //aqui estamos dizendo que o serviceResponse.Dados vai receber todos os funcionarios que estão no banco de dados, para isso usamos o await para esperar a resposta do banco de dados, e usamos o ToListAsync() para pegar todos os dados do banco de dados
+                if (serviceResponse.Dados.Count == 0)
+                {
+                    serviceResponse.Mensagem = "Nenum dado encontrado no banco de dados!";
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message; //se der algum erro, a mensagem vai receber a mensagem de erro
+                serviceResponse.Sucesso = false; //e a propriedade sucesso vai receber false
+            }
+            return serviceResponse; //retorne o serviceResponse
+            
         }
 
         public async Task<ServiceResponse<FuncionarioWebModel>> GetFuncionarioById(int id)
