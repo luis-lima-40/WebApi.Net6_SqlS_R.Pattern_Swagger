@@ -37,6 +37,15 @@ namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Controllers
         {
             return Ok(await _funcionarioInterface.AddFuncionario(novoFuncionario));
         }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<FuncionarioWebModel>>>> UpdateFuncionario(FuncionarioWebModel funcionarioAtualizado)
+        {
+            ServiceResponse<List<FuncionarioWebModel>> serviceResponse = await _funcionarioInterface.UpdateFuncionario(funcionarioAtualizado);
+            return Ok(serviceResponse);
+        }
+
+
         [HttpPut("inativaFuncionario")] //como esta rota é so o nome e não é um parametro não precisamos por entre chaves
         public async Task <ActionResult<ServiceResponse<List<FuncionarioWebModel>>>> InativaFuncionario(int Id)
         {

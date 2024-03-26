@@ -9,7 +9,7 @@ namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Service.FuncionarioService
         Task<ServiceResponse<List<FuncionarioWebModel>>> GetFuncionario();
         Task<ServiceResponse<FuncionarioWebModel>> GetFuncionarioById(int id);
         Task<ServiceResponse<List<FuncionarioWebModel>>> AddFuncionario(FuncionarioWebModel novoFuncionario);
-        Task<ServiceResponse<FuncionarioWebModel>> UpdateFuncionario(FuncionarioWebModel funcionarioAtualizado);
+        Task<ServiceResponse<List<FuncionarioWebModel>>> UpdateFuncionario(FuncionarioWebModel funcionarioAtualizado);
         Task<ServiceResponse<List<FuncionarioWebModel>>> DeleteFuncionario(int id);
         Task<ServiceResponse<List<FuncionarioWebModel>>> InativaFuncionario(int id);
         Task<ServiceResponse<List<FuncionarioWebModel>>> AtivaFuncionario(int id);  

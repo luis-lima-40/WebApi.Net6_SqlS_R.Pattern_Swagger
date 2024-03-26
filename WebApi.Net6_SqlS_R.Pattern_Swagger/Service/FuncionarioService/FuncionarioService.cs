@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.DataContext;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Enums;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Models;
@@ -124,9 +125,37 @@ namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Service.FuncionarioService
             return serviceResponse; //retorne o serviceResponse 
         }
 
-        public Task<ServiceResponse<FuncionarioWebModel>> UpdateFuncionario(FuncionarioWebModel funcionarioAtualizado)
+        public async Task<ServiceResponse<List<FuncionarioWebModel>>> UpdateFuncionario(FuncionarioWebModel funcionarioAtualizado)
         {
-            throw new NotImplementedException();
+            ServiceResponse<List<FuncionarioWebModel>> serviceResponse = new ServiceResponse<List<FuncionarioWebModel>> (); //instancie o serviceResponse   
+            try
+            {
+                FuncionarioWebModel funcionario = _context.Funcionarios.AsNoTracking().FirstOrDefault(x => x.Id == funcionarioAtualizado.Id); //aqui estamos criando uma variavel chamada funcionario do tipo FuncionarioModel que vai receber o primeiro funcionario que tiver o id igual ao id que estamos passando como parametro // AsNoTracking(). serve para não dar erro no banco de dados na hora de atualizar
+
+                if (funcionario == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Nenhum funcionário foi Sellecionado";
+                    serviceResponse.Sucesso = false;
+                    return serviceResponse;
+                }
+                //funcionario.Nome = funcionarioAtualizado.Nome;
+                //funcionario.Sobrenome = funcionarioAtualizado.Sobrenome;
+                //funcionario.Departamento = funcionarioAtualizado.Departamento;
+                //funcionario.Ativo = funcionarioAtualizado.Ativo;
+                //funcionario.Turno = funcionarioAtualizado.Turno;
+                funcionario.DataDeAlteracao = DateTime.Now.ToLocalTime();
+                _context.Funcionarios.Update(funcionarioAtualizado);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Dados = _context.Funcionarios.ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message; //se der algum erro, a mensagem vai receber a mensagem de erro
+                serviceResponse.Sucesso = false; //e a propriedade sucesso vai receber false
+            }
+            return serviceResponse; //retorne o serviceResponse
         }
     }
 }
