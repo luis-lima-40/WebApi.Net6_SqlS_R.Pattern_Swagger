@@ -4,6 +4,9 @@ using WebApi.Net6_SqlS_R.Pattern_Swagger.Enums;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Models;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Service.FuncionarioService;
 
+
+//FromHeaderAttribute(header: 'Access-Control-Allow-Origin: http://localhost:4200'); // coloque o Access-Control-Allow-Origin no header para que o Angular possa acessar a API
+
 namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Controllers
 {
     [Route("api/[controller]")]

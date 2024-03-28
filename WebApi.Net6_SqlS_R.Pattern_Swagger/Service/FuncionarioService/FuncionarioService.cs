@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Runtime.Intrinsics.X86;
-using System.Text.RegularExpressions;
+//using Microsoft.IdentityModel.Tokens;
+//using System;
+//using System.Runtime.Intrinsics.X86;
+//using System.Text.RegularExpressions;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.DataContext;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Enums;
 using WebApi.Net6_SqlS_R.Pattern_Swagger.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+//using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebApi.Net6_SqlS_R.Pattern_Swagger.Service.FuncionarioService
 {
